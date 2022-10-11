@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Terreno
+  - Jugador
+  - Enemy
+  - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -13,13 +18,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - WhatIsGround
+  - WhatIsWall
+  - WhatIsLadder
+  - WhatIsEnemy
+  - WhatIsPlayer
+  - PostProcessing
+  - WhatIsBullet
   - 
   - 
   - 

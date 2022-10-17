@@ -135,8 +135,8 @@ public class ProjectileGun : MonoBehaviour
 
         Invoke("ReloadingFinished", reloadTime);
     }
-    private void addBullets(){
-        //to-do
+    public void addBullets(){
+        totalBullets = totalBullets + magazineSize;
     }
 
     private void ReloadingFinished()

@@ -42,6 +42,7 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         readyToShoot = true;
         moving = GameObject.Find("PlayerObj").GetComponent<playerMov>();
+        totalBullets = magazineSize * 2;
     }
     void Update()
     {
@@ -50,7 +51,7 @@ public class ProjectileGun : MonoBehaviour
         MyInput();
 
         //Set Text
-        text.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        text.SetText(bulletsLeft / bulletsPerTap + " / " + totalBullets / bulletsPerTap);
     }
     private void MyInput()
     {
@@ -134,9 +135,17 @@ public class ProjectileGun : MonoBehaviour
 
         Invoke("ReloadingFinished", reloadTime);
     }
+    private void addBullets(){
+        //to-do
+    }
+
     private void ReloadingFinished()
     {
-        bulletsLeft = magazineSize;
+        int aux = bulletsLeft + totalBullets;
+        int reload = Mathf.Min(aux, magazineSize);
+        bulletsLeft = reload;
+        Debug.Log(reload);
+        totalBullets = aux - reload;
         reloading = false;
     }
 

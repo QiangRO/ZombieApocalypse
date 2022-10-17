@@ -15,6 +15,7 @@ public class ProjectileGun : MonoBehaviour
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
+    int totalBullets;
 
     //recoil
     public Rigidbody playerRb;
@@ -34,13 +35,18 @@ public class ProjectileGun : MonoBehaviour
 
     public bool allowInvoke = true;
 
+    //movComm
+    private playerMov moving;
     private void Start()
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        moving = GameObject.Find("PlayerObj").GetComponent<playerMov>();
     }
     void Update()
     {
+        if(moving.amIMoving) spread = 0.5f;
+        else spread = 0f;
         MyInput();
 
         //Set Text

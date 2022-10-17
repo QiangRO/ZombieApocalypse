@@ -23,6 +23,7 @@ public class playerMov : MonoBehaviour
     public bool grounded;
     public LayerMask whatIsGround;
 
+    public bool amIMoving;
     public float counterMovement = 0.175f;
     private float threshold = 0.01f;
     public float maxSlopeAngle = 35f;
@@ -93,6 +94,7 @@ public class playerMov : MonoBehaviour
         playerScale = transform.localScale;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        amIMoving = false;
     }
 
 
@@ -116,6 +118,11 @@ public class playerMov : MonoBehaviour
     {
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
+        //creating a flag for spread according to the movement
+        if(x == 0 && y == 0)
+            amIMoving = false;
+        else
+            amIMoving = true;
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftControl);
 

@@ -72,8 +72,3 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 #GitIgnore Alberto Soria, for only manage the code
-/Packages
-/Readme.md
-/score.txt
-/.vscode
-/ProjectSettings

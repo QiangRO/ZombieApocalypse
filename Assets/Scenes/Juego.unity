@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.42287058, g: 0.45364118, b: 0.47607076, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.42287055, g: 0.4536416, b: 0.47607088, a: 1}
+>>>>>>> 3ee6db05530daf371ea428adaa2ea6dbd5d4a6c7
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1770,6 +1774,7 @@ Transform:
   m_Father: {fileID: 2014230728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1424792577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1885,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> 3ee6db05530daf371ea428adaa2ea6dbd5d4a6c7
 --- !u!1001 &1471035521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2143,7 +2150,10 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+<<<<<<< HEAD
   amIMoving: 0
+=======
+>>>>>>> 3ee6db05530daf371ea428adaa2ea6dbd5d4a6c7
   counterMovement: 0.175
   maxSlopeAngle: 35
   slideForce: 400

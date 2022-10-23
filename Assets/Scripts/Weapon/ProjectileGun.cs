@@ -15,6 +15,7 @@ public class ProjectileGun : MonoBehaviour
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
+    int totalBullets;
 
     //recoil
     public Rigidbody playerRb;
@@ -34,17 +35,23 @@ public class ProjectileGun : MonoBehaviour
 
     public bool allowInvoke = true;
 
+    //movComm
+    private playerMov moving;
     private void Start()
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        moving = GameObject.Find("PlayerObj").GetComponent<playerMov>();
+        totalBullets = magazineSize * 2;
     }
     void Update()
     {
+        if(moving.amIMoving) spread = 0.5f;
+        else spread = 0f;
         MyInput();
 
         //Set Text
-        text.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        text.SetText(bulletsLeft / bulletsPerTap + " / " + totalBullets / bulletsPerTap);
     }
     private void MyInput()
     {
@@ -128,9 +135,17 @@ public class ProjectileGun : MonoBehaviour
 
         Invoke("ReloadingFinished", reloadTime);
     }
+    public void addBullets(){
+        totalBullets = totalBullets + magazineSize;
+    }
+
     private void ReloadingFinished()
     {
-        bulletsLeft = magazineSize;
+        int aux = bulletsLeft + totalBullets;
+        int reload = Mathf.Min(aux, magazineSize);
+        bulletsLeft = reload;
+        Debug.Log(reload);
+        totalBullets = aux - reload;
         reloading = false;
     }
 

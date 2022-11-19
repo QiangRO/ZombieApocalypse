@@ -19,8 +19,8 @@ public class ammoBox : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other){
-        if(other.tag == "Player" && !boxUsed){
-            ProjectileGun gun = GameObject.Find("GunContainer").GetComponentInChildren<ProjectileGun>();
+        ProjectileGun gun = GameObject.Find("GunContainer").GetComponentInChildren<ProjectileGun>();
+        if(other.tag == "Player" && !boxUsed && gun != null){
             gun.addBullets();
             boxUsed = true;
             rotSpeed *= 4;

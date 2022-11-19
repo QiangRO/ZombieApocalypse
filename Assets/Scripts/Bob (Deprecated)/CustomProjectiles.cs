@@ -305,8 +305,14 @@ public class CustomProjectiles : MonoBehaviour
         if (objectToTp != null && tpOnEveryCollision) Pearl(transform.position);
 
         //Explode on touch
-        if (explodeOnTouch && collision.collider.CompareTag("Enemy")) Explode();
-
+        Debug.Log(collision.gameObject.name);
+        if (explodeOnTouch && collision.collider.CompareTag("Enemy")) {
+            Target target = collision.gameObject.GetComponent<Target>();
+            if(target != null){
+            target.TargetHealth();
+            Explode();
+            }
+        }
         //Count up collisions
         collisions++;
     }

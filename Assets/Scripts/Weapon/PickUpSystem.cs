@@ -32,11 +32,11 @@ public class PickUpSystem : MonoBehaviour
     }
     private void Update()
     {
-        //Check if player is in range and "E" is pressed
+        //Revisa si el jugador esta en rango y se presiona "E"
         Vector3 distanceToPlayer = player.position - transform.position;
         if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull) PickUp();
 
-        //Drop if equipped and "Q" is pressed
+        //Suelta el arma si esta equipada y se presiona "Q"
         if (equipped && Input.GetKeyDown(KeyCode.Q)) Drop();
     }
 

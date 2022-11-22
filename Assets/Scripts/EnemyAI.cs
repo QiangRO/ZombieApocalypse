@@ -37,6 +37,11 @@ public class EnemyAI : MonoBehaviour
     float speed;
 
     Vector3 playerPosition;
+
+    [SerializeField]
+    bool dropAmmo;
+    [SerializeField]
+    GameObject ammo;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -49,6 +54,10 @@ public class EnemyAI : MonoBehaviour
         } else {
             speed = 2.0f;
         }
+        if(Random.Range(1, 3) == 1){
+            dropAmmo = true;
+        }
+        dropAmmo = true;
     }
 
     // Update is called once per frame
@@ -84,6 +93,10 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         } else {
+            if(dropAmmo){
+                GameObject duplicate = Instantiate(ammo, transform);
+                dropAmmo = false;
+            }
             agent.speed = 0f;
         }
         if(ifPatrol){
@@ -93,7 +106,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
     private void OnTriggerStay(Collider other) {
-        Debug.Log("hi");
         if(other.gameObject.tag.Equals("PatrolZone")){
             patrolPosition = Random.Range(0, patrolZones.Length - 1);
         }    

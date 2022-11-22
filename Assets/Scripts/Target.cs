@@ -13,18 +13,18 @@ public class Target : MonoBehaviour
     [SerializeField]
     GameObject zombi;
 
-    [SerializeField]
-    bool dropAmmo;
-    [SerializeField]
-    GameObject ammo;
+    // [SerializeField]
+    // bool dropAmmo;
+    // [SerializeField]
+    // GameObject ammo;
     bool collidersOff;
 
     void Start(){
         anim = gameObject.GetComponentInParent<Animator>();
-        if(Random.Range(1, 3) == 1){
-            dropAmmo = true;
-        }
-        dropAmmo = true;
+        // if(Random.Range(1, 3) == 1){
+        //     dropAmmo = true;
+        // }
+        // dropAmmo = true;
         collidersOff = true;
     }
 
@@ -34,10 +34,10 @@ public class Target : MonoBehaviour
             anim.SetBool("Dead", true);
             if(collidersOff){ColliderOff();}
 
-            if(dropAmmo){
-                GameObject duplicate = Instantiate(ammo, zombi.transform);
-                dropAmmo = false;
-            }
+            // if(dropAmmo){
+            //     GameObject duplicate = Instantiate(ammo, zombi.transform);
+            //     dropAmmo = false;
+            // }
             Destroy(zombi, 5f);
         }
     }

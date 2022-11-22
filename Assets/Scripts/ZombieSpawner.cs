@@ -10,12 +10,15 @@ public class ZombieSpawner : MonoBehaviour
     int seconds;
     bool spawner;
     Transform posZombie;
+    
+    [SerializeField]
+    float spawnTime;
     void Start()
     {
         posZombie = zombie.transform;
-        posZombie.transform.position = new Vector3(transform.position.x, zombie.transform.position.y, transform.position.z);
+        posZombie.transform.position = new Vector3(gameObject.transform.position.x, zombie.transform.position.y, gameObject.transform.position.z);
         spawner = true;
-        InvokeRepeating("SpawnZombie", 0f, 0.5f);
+        InvokeRepeating("SpawnZombie", 0f, spawnTime);
         gameObject.SetActive(false);
     }
     // Update is called once per frame

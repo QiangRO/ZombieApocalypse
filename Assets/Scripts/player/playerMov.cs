@@ -1,9 +1,14 @@
-
 using System;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Utility;
+using Random = UnityEngine.Random;
 
 public class playerMov : MonoBehaviour
 {
+    // correr
+    public float runSpeed = 10f;
+    
     //Assingables
     public Transform playerCam;
     public Transform orientation;
@@ -18,7 +23,7 @@ public class playerMov : MonoBehaviour
 
     //Movement
     public float moveSpeed = 4500;
-    public float maxSpeed = 20;
+    public float maxSpeed = 10;
     private float startMaxSpeed;
     public bool grounded;
     public LayerMask whatIsGround;
@@ -36,6 +41,7 @@ public class playerMov : MonoBehaviour
     public float crouchGravityMultiplier;
 
     //Jumping
+    private bool readyToRun = true;
     private bool readyToJump = true;
     private float jumpCooldown = 0.25f;
     public float jumpForce = 550f;
@@ -44,8 +50,11 @@ public class playerMov : MonoBehaviour
     int doubleJumpsLeft;
 
     //Input
-    public float x, y;
-    bool jumping, sprinting, crouching;
+    public float x,
+        y;
+    bool jumping,
+        sprinting,
+        crouching;
 
     //AirDash
     public float dashForce;
@@ -59,7 +68,8 @@ public class playerMov : MonoBehaviour
     //RocketBoost
     public float maxRocketTime;
     public float rocketForce;
-    bool rocketActive, readyToRocket;
+    bool rocketActive,
+        readyToRocket;
     bool alreadyInvokedRockedStop;
     float rocketTimer;
 
@@ -73,13 +83,15 @@ public class playerMov : MonoBehaviour
     float timePassedSonic;
 
     //flash
-    public float flashCooldown, flashRange;
+    public float flashCooldown,
+        flashRange;
     public int maxFlashesLeft;
     bool alreadySubtractedFlash;
     public int flashesLeft = 3;
 
     //Climbing
-    public float climbForce, maxClimbSpeed;
+    public float climbForce,
+        maxClimbSpeed;
     public LayerMask whatIsLadder;
     bool alreadyStoppedAtLadder;
 
@@ -97,7 +109,6 @@ public class playerMov : MonoBehaviour
         amIMoving = false;
     }
 
-
     private void FixedUpdate()
     {
         Movement();
@@ -109,7 +120,6 @@ public class playerMov : MonoBehaviour
         Look();
 
         SonicSpeed();
-
     }
 
     /// <summary>
@@ -119,12 +129,23 @@ public class playerMov : MonoBehaviour
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         //creating a flag for spread according to the movement
-        if(x == 0 && y == 0)
+        if (x == 0 && y == 0)
             amIMoving = false;
         else
             amIMoving = true;
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftControl);
+
+        if (Input.GetKey(KeyCode.LeftShift) && readyToRun)
+        {
+            moveSpeed = 7500;
+            maxSpeed = 15;
+        }else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            moveSpeed = 4500;
+            maxSpeed = startMaxSpeed;
+        }
+        
 
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -145,27 +166,34 @@ public class playerMov : MonoBehaviour
             wTapTimes++;
             Invoke("ResetTapTimes", 0.3f);
         }
-        if (wTapTimes == 2 && readyToDash) Dash();
+        if (wTapTimes == 2 && readyToDash)
+            Dash();
 
         //SideFlash
-        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x > 0) SideFlash(true);
-        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x < 0) SideFlash(false);
+        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x > 0)
+            SideFlash(true);
+        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x < 0)
+            SideFlash(false);
 
         //RocketFlight
-        if (Input.GetKeyDown(KeyCode.LeftShift) && readyToRocket)
-        {
-            //Dampens velocity
-            rb.velocity = rb.velocity / 3;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && readyToRocket)
-            StartRocketBoost();
+        // if (Input.GetKeyDown(KeyCode.LeftShift) && readyToRocket)
+        // {
+        //     //Dampens velocity
+        //     rb.velocity = rb.velocity / 3;
+        // }
+        // if (Input.GetKey(KeyCode.LeftShift) && readyToRocket)
+        //     StartRocketBoost();
 
         //Climbing
         if (Physics.Raycast(transform.position, orientation.forward, 1, whatIsLadder) && y > .9f)
             Climb();
-        else alreadyStoppedAtLadder = false;
+        else
+            alreadyStoppedAtLadder = false;
     }
-
+    private void resetReadyToRun()
+    {
+        readyToRun = true;
+    }
     private void ResetTapTimes()
     {
         wTapTimes = 0;
@@ -174,7 +202,11 @@ public class playerMov : MonoBehaviour
     private void StartCrouch()
     {
         transform.localScale = crouchScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y - 0.5f,
+            transform.position.z
+        );
         if (rb.velocity.magnitude > 0.5f)
         {
             if (grounded)
@@ -182,13 +214,20 @@ public class playerMov : MonoBehaviour
                 rb.AddForce(orientation.transform.forward * slideForce);
             }
         }
+        maxSpeed = startMaxSpeed / 2;
+        
     }
-
+    
     private void StopCrouch()
     {
         transform.localScale = playerScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y + 0.5f,
+            transform.position.z
+        );
     }
+
 
     private void Movement()
     {
@@ -196,27 +235,22 @@ public class playerMov : MonoBehaviour
         //Needed that the Ground Check works better!
         float gravityMultiplier = 10f;
 
-        if (crouching) gravityMultiplier = crouchGravityMultiplier;
+        if (crouching)
+            gravityMultiplier = crouchGravityMultiplier;
 
         rb.AddForce(Vector3.down * Time.deltaTime * gravityMultiplier);
 
         //Find actual velocity relative to where player is looking
         Vector2 mag = FindVelRelativeToLook();
-        float xMag = mag.x, yMag = mag.y;
+        float xMag = mag.x,
+            yMag = mag.y;
 
         //Counteract sliding and sloppy movement
         CounterMovement(x, y, mag);
 
         //If holding jump && ready to jump, then jump
-        if (readyToJump && jumping && grounded && !rocketActive) Jump();
-
-        //ResetStuff when touching ground
-        if (grounded)
-        {
-            readyToDash = true;
-            readyToRocket = true;
-            doubleJumpsLeft = startDoubleJumps;
-        }
+        if (readyToJump && jumping && grounded && !rocketActive)
+            Jump();
 
         //Set max speed
         float maxSpeed = this.maxSpeed;
@@ -229,13 +263,18 @@ public class playerMov : MonoBehaviour
         }
 
         //If speed is larger than maxspeed, cancel out the input so you don't go over max speed
-        if (x > 0 && xMag > maxSpeed) x = 0;
-        if (x < 0 && xMag < -maxSpeed) x = 0;
-        if (y > 0 && yMag > maxSpeed) y = 0;
-        if (y < 0 && yMag < -maxSpeed) y = 0;
+        if (x > 0 && xMag > maxSpeed)
+            x = 0;
+        if (x < 0 && xMag < -maxSpeed)
+            x = 0;
+        if (y > 0 && yMag > maxSpeed)
+            y = 0;
+        if (y < 0 && yMag < -maxSpeed)
+            y = 0;
 
         //Some multipliers
-        float multiplier = 1f, multiplierV = 1f;
+        float multiplier = 1f,
+            multiplierV = 1f;
 
         // Movement in air
         if (!grounded)
@@ -245,10 +284,18 @@ public class playerMov : MonoBehaviour
         }
 
         // Movement while sliding
-        if (grounded && crouching) multiplierV = 0f;
+        if (grounded && crouching)
+            multiplierV = 0f;
 
         //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(
+            orientation.transform.forward
+                * y
+                * moveSpeed
+                * Time.deltaTime
+                * multiplier
+                * multiplierV
+        );
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
@@ -288,7 +335,6 @@ public class playerMov : MonoBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
     }
 
     private void ResetJump()
@@ -315,6 +361,7 @@ public class playerMov : MonoBehaviour
 
         Invoke("ActivateGravity", dashTime);
     }
+
     private void ActivateGravity()
     {
         rb.useGravity = true;
@@ -325,6 +372,7 @@ public class playerMov : MonoBehaviour
             rb.AddForce(dashStartVector * -dashForce * 0.5f);
         }
     }
+
     private void SonicSpeed()
     {
         //If running builds up speed
@@ -348,24 +396,44 @@ public class playerMov : MonoBehaviour
             timePassedSonic = 0;
         }
     }
+
     private void SideFlash(bool isRight)
     {
         RaycastHit hit;
         //Flash Right
-        if (Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
+        if (
+            Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight
+        )
         {
             transform.position = hit.point;
         }
-        else if (!Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
-            transform.position = new Vector3(transform.position.x + flashRange, transform.position.y, transform.position.z);
+        else if (
+            !Physics.Raycast(orientation.position, orientation.right, out hit, flashRange)
+            && isRight
+        )
+            transform.position = new Vector3(
+                transform.position.x + flashRange,
+                transform.position.y,
+                transform.position.z
+            );
 
         //Flash Left
-        if (Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
+        if (
+            Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange)
+            && !isRight
+        )
         {
             transform.position = hit.point;
         }
-        else if (!Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
-            transform.position = new Vector3(transform.position.x - flashRange, transform.position.y, transform.position.z);
+        else if (
+            !Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange)
+            && !isRight
+        )
+            transform.position = new Vector3(
+                transform.position.x - flashRange,
+                transform.position.y,
+                transform.position.z
+            );
 
         //Dampen falldown
         Vector3 vel = rb.velocity;
@@ -381,6 +449,7 @@ public class playerMov : MonoBehaviour
             alreadySubtractedFlash = true;
         }
     }
+
     private void ResetFlash()
     {
         alreadySubtractedFlash = false;
@@ -389,6 +458,7 @@ public class playerMov : MonoBehaviour
         if (flashesLeft < maxFlashesLeft)
             flashesLeft++;
     }
+
     private void StartRocketBoost()
     {
         if (!alreadyInvokedRockedStop)
@@ -413,8 +483,8 @@ public class playerMov : MonoBehaviour
         //Boost forwards and upwards
         rb.AddForce(orientation.forward * rocketForce * Time.deltaTime * 1f);
         rb.AddForce(Vector3.up * rocketForce * Time.deltaTime * 2f);
-
     }
+
     private void StopRocketBoost()
     {
         alreadyInvokedRockedStop = false;
@@ -434,6 +504,7 @@ public class playerMov : MonoBehaviour
 
         rocketTimer = 0;
     }
+
     private void Climb()
     {
         //Makes possible to climb even when falling down fast
@@ -451,14 +522,18 @@ public class playerMov : MonoBehaviour
             rb.AddForce(orientation.up * climbForce * Time.deltaTime);
 
         //Doesn't Push into the wall
-        if (!Input.GetKey(KeyCode.S)) y = 0;
+        if (!Input.GetKey(KeyCode.S))
+            y = 0;
     }
 
     private float desiredX;
+
     private void Look()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
+        float mouseX =
+            Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
+        float mouseY =
+            Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
 
         //Find current look rotation
         Vector3 rot = playerCam.transform.localRotation.eulerAngles;
@@ -472,25 +547,45 @@ public class playerMov : MonoBehaviour
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0f); //Error
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
+
     private void CounterMovement(float x, float y, Vector2 mag)
     {
-        if (!grounded || jumping) return;
+        if (!grounded || jumping)
+            return;
 
         //Slow down sliding
         if (crouching)
         {
-            rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
+            rb.AddForce(
+                moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement
+            );
             return;
         }
 
         //Counter movement
-        if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
+        if (
+            Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f
+            || (mag.x < -threshold && x > 0)
+            || (mag.x > threshold && x < 0)
+        )
         {
-            rb.AddForce(moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement);
+            rb.AddForce(
+                moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement
+            );
         }
-        if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
+        if (
+            Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f
+            || (mag.y < -threshold && y > 0)
+            || (mag.y > threshold && y < 0)
+        )
         {
-            rb.AddForce(moveSpeed * orientation.transform.forward * Time.deltaTime * -mag.y * counterMovement);
+            rb.AddForce(
+                moveSpeed
+                    * orientation.transform.forward
+                    * Time.deltaTime
+                    * -mag.y
+                    * counterMovement
+            );
         }
 
         //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.
@@ -536,7 +631,8 @@ public class playerMov : MonoBehaviour
     {
         //Make sure we are only checking for walkable layers
         int layer = other.gameObject.layer;
-        if (whatIsGround != (whatIsGround | (1 << layer))) return;
+        if (whatIsGround != (whatIsGround | (1 << layer)))
+            return;
 
         //Iterate through every collision in a physics update
         for (int i = 0; i < other.contactCount; i++)

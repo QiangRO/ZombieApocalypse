@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -17,11 +18,15 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     int posimage;
+
+    GameObject panel;
     void Start(){
         posimage = 0;
         HideImages();
         playerLife = 3f;
         playerDamage = 1f;
+        panel = GameObject.FindGameObjectWithTag("Canvas");
+        panel.SetActive(false);
     }
     private void OnTriggerEnter(Collider other) {
         Debug.Log(playerLife);
@@ -31,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
                 Debug.Log("Estas Muerto");
                 gameObject.GetComponent<Rigidbody>().freezeRotation = false;
                 gameObject.GetComponent<playerMov>().enabled = false;
+                panel.SetActive(true);
+                StartCoroutine("ChangeScene");
             } else {
                 playerLife -= playerDamage;
                 damage[posimage].enabled = true;
@@ -44,5 +51,10 @@ public class PlayerHealth : MonoBehaviour
         foreach(Image imagen in damage){
             imagen.enabled = false;
         }
+    }
+
+    private IEnumerator ChangeScene(){
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("Menu");
     }
 }

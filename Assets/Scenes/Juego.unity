@@ -393,7 +393,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 381016894237407559, guid: 425b68de3417676499e41f35215936cb, type: 3}
   m_PrefabInstance: {fileID: 603640323}
-
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &45298215 stripped
 MonoBehaviour:
@@ -470,7 +469,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &128711809
 PrefabInstance:
-
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
@@ -583,7 +581,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1159c706e6f5bbb44900316318be77fc, type: 3}
-
 --- !u!1001 &224596180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2039,9 +2036,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3267387093214896002, guid: 0be2d40c823421744b410f8b52e25d0c, type: 3}
       propertyPath: m_RootOrder
-
       value: 6
-
       objectReference: {fileID: 0}
     - target: {fileID: 3267387093214896002, guid: 0be2d40c823421744b410f8b52e25d0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2911,22 +2906,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038904130}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1077237542
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 169464059}
-  m_Layer: 0
-  m_Name: 'Recovery GameObject for Transform (ID in file: 169464059)'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &1097597236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: eb2136a3cdea8f84bb3b2ca2d025a818, type: 3}
@@ -4241,22 +4220,6 @@ Transform:
   m_Father: {fileID: 237165060}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1495723625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 182843682}
-  m_Layer: 0
-  m_Name: 'Recovery GameObject for Transform (ID in file: 182843682)'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1499845673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6052315280306893589, guid: 8c0a1945045eb8647b1419c676e5cb00, type: 3}
@@ -5155,9 +5118,7 @@ Transform:
   - {fileID: 1756268709}
   - {fileID: 1516792967}
   m_Father: {fileID: 0}
-
   m_RootOrder: 7
-
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1964249590
 GameObject:
@@ -5648,9 +5609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7814484150516724167, guid: 3d87f4d3d3e2e9348ad55f6270155c7f, type: 3}
       propertyPath: m_RootOrder
-
       value: 4
-
       objectReference: {fileID: 0}
     - target: {fileID: 7814484150516724167, guid: 3d87f4d3d3e2e9348ad55f6270155c7f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5783,10 +5742,6 @@ PrefabInstance:
     - target: {fileID: 7814484150888804221, guid: 3d87f4d3d3e2e9348ad55f6270155c7f, type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7814484151328903349, guid: 3d87f4d3d3e2e9348ad55f6270155c7f, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7814484151328903349, guid: 3d87f4d3d3e2e9348ad55f6270155c7f, type: 3}
       propertyPath: m_RootOrder

@@ -11,6 +11,9 @@ TagManager:
   - Bullet
   - ammunition
   - Weapon
+  - Zombie
+  - PatrolZone
+  - Girl
   layers:
   - Default
   - TransparentFX

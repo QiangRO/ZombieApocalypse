@@ -7,9 +7,6 @@ public class EnemyAI : MonoBehaviour
 {
     NavMeshAgent agent;
 
-    [SerializeField]
-    GameObject player;
-
     Animator animZombie;
 
     int patrolPosition;
@@ -32,23 +29,48 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     LayerMask isPlayer;
 
+    [SerializeField]
+    bool ifPatrol;
+
+    [SerializeField]
+    bool run;
+    float speed;
+
+    Vector3 playerPosition;
+
+    [SerializeField]
+    bool dropAmmo;
+    [SerializeField]
+    GameObject ammo;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animZombie = GetComponent<Animator>();
-        patrolPosition = Random.Range(0, patrolZones.Length - 1);
+        if(ifPatrol){
+            patrolPosition = Random.Range(0, patrolZones.Length - 1);
+        }
+        if(run){
+            speed = 7.0f;
+        } else {
+            speed = 2.0f;
+        }
+        if(Random.Range(1, 3) == 1){
+            dropAmmo = true;
+        }
+        dropAmmo = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         // animZombie.SetBool("Run", true);
         // if(animZombie.GetBool("Dead")){
         //    gameObject.GetComponent<EnemyAI>().enabled = false;
         // }
         // agent.SetDestination(player.transform.position);
         if(!animZombie.GetBool("Dead")){
-            if(patrol){
+            if(patrol && ifPatrol){
                 animZombie.SetBool("Walk", true);
                 animZombie.SetBool("Run", false);
                 agent.speed = 1.5f;
@@ -60,20 +82,28 @@ public class EnemyAI : MonoBehaviour
                     animZombie.SetBool("Walk", false);
                     animZombie.SetBool("Run", false);
                     animZombie.SetBool("Attack", true);
-                    agent.speed = 7.0f;
-                    agent.SetDestination(player.transform.position);
+                    agent.speed = speed;
+                    agent.SetDestination(playerPosition);
                 } else {
                     animZombie.SetBool("Walk", false);
                     animZombie.SetBool("Run", true);
                     animZombie.SetBool("Attack", false);
-                    agent.speed = 7.0f;
-                    agent.SetDestination(player.transform.position);
+                    agent.speed = speed;
+                    agent.SetDestination(playerPosition);
                 }
             }
         } else {
+            if(dropAmmo){
+                GameObject duplicate = Instantiate(ammo, transform);
+                dropAmmo = false;
+            }
             agent.speed = 0f;
         }
-        PersecutionArea();
+        if(ifPatrol){
+            PersecutionArea();
+        } else {
+            patrol = false;
+        }
     }
     private void OnTriggerStay(Collider other) {
         if(other.gameObject.tag.Equals("PatrolZone")){

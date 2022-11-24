@@ -14,8 +14,6 @@ TagManager:
   - Zombie
   - PatrolZone
   - Girl
-  - wall
-  - Canvas
   layers:
   - Default
   - TransparentFX

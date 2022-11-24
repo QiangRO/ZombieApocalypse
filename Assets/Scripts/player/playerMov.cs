@@ -138,8 +138,8 @@ public class playerMov : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && readyToRun)
         {
-            moveSpeed = 5500;
-            maxSpeed = 10;
+            moveSpeed = 7500;
+            maxSpeed = 15;
         }else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             moveSpeed = 4500;

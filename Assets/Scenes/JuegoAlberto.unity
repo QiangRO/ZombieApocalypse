@@ -2407,6 +2407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ciudad
       objectReference: {fileID: 0}
+    - target: {fileID: 1737388383749578388, guid: 2c624f2acbb0a74458e14b766d001c0f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 37.42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c624f2acbb0a74458e14b766d001c0f, type: 3}
 --- !u!4 &1179815187 stripped

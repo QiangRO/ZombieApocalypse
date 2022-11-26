@@ -16,6 +16,7 @@ TagManager:
   - Girl
   - wall
   - Canvas
+  - Linterna
   layers:
   - Default
   - TransparentFX

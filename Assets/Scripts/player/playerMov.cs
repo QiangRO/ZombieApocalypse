@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class playerMov : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class playerMov : MonoBehaviour
             amIMoving = true;
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftControl);
-
+        //Run when holding shift
         if (Input.GetKey(KeyCode.LeftShift) && readyToRun)
         {
             moveSpeed = 5500;
@@ -145,7 +146,11 @@ public class playerMov : MonoBehaviour
             moveSpeed = 4500;
             maxSpeed = startMaxSpeed;
         }
-        
+        //
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            //SetAc
+        }
 
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))

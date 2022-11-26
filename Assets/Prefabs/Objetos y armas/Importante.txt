@@ -1,0 +1,6 @@
+***************************************
+///////////////////////////////////////
+Debido al script de Pick up, las armas no deben ser prefabs!!!!
+por lo que debes desempaquetarlo para que funcione correctamente
+///////////////////////////////////////
+***************************************

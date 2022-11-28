@@ -42,10 +42,18 @@ public class EnemyAI : MonoBehaviour
     bool dropAmmo;
     [SerializeField]
     GameObject ammo;
+    
+    AudioSource [] deadSounds;
+    AudioSource deadSound;
+    bool playDeadSound;
     void Start()
-    {
+    {   
+        playDeadSound = true;
+        deadSounds = GetComponents<AudioSource>();
+        deadSound = deadSounds[Random.Range(0, 2)];
         agent = GetComponent<NavMeshAgent>();
-        animZombie = GetComponent<Animator>();
+        animZombie = GetComponentInChildren<Animator>();
+        Debug.Log(animZombie.gameObject.name + "Aqui");
         if(ifPatrol){
             patrolPosition = Random.Range(0, patrolZones.Length - 1);
         }
@@ -96,6 +104,11 @@ public class EnemyAI : MonoBehaviour
             if(dropAmmo){
                 GameObject duplicate = Instantiate(ammo, transform);
                 dropAmmo = false;
+            }
+            if(playDeadSound){
+                Debug.Log(deadSound);
+                deadSound.Play();
+                playDeadSound = false;
             }
             agent.speed = 0f;
         }

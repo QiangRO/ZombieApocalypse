@@ -15,8 +15,6 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     Image [] damage;
-
-    [SerializeField]
     int posimage;
 
     GameObject panel;
@@ -29,8 +27,8 @@ public class PlayerHealth : MonoBehaviour
         panel.SetActive(false);
     }
     private void OnTriggerEnter(Collider other) {
-        Debug.Log(playerLife);
-        animZombie = other.gameObject.GetComponent<Animator>();
+        Debug.Log(other.gameObject.name);
+        animZombie = other.gameObject.GetComponentInChildren<Animator>();
         if(other.gameObject.tag.Equals("Enemy") && !animZombie.GetBool("Dead") && animZombie.GetBool("Attack")){
             if(playerLife <= 0){
                 Debug.Log("Estas Muerto");

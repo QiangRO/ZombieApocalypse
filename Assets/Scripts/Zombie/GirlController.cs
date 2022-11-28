@@ -22,8 +22,11 @@ public class GirlController : MonoBehaviour
     LayerMask isPlayer;
     
     Vector3 playerPosition;
+
+    AudioSource girlScream;
     void Start()
     {
+        girlScream = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         girl = GetComponent<NavMeshAgent>();
         waitRescue = true;
@@ -37,14 +40,24 @@ public class GirlController : MonoBehaviour
         if(waitRescue){
             animator.SetBool("Wary", true);
         } else {
-            animator.SetBool("Wary", false);
-            if(follow){
-                girl.SetDestination(playerPosition);
-                animator.SetBool("Run", true);
-                animator.SetBool("Idle", false);
+            if(!GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerHealth>().isDead){
+                animator.SetBool("Wary", false);
+                if(follow){
+                    girl.SetDestination(playerPosition);
+                    animator.SetBool("Run", true);
+                    animator.SetBool("Idle", false);
+                } else {
+                    animator.SetBool("Run", false);
+                    animator.SetBool("Idle", true);
+                }
             } else {
+                if(!animator.GetBool("Wary")){
+                    girlScream.Play();
+                }
+                animator.SetBool("Wary", true);
                 animator.SetBool("Run", false);
-                animator.SetBool("Idle", true);
+                animator.SetBool("Idle", false);
+                girl.velocity = new Vector3(0, 0, 0);
             }
         }
         FollowArea();

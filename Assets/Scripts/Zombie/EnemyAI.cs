@@ -46,6 +46,7 @@ public class EnemyAI : MonoBehaviour
     AudioSource [] deadSounds;
     AudioSource deadSound;
     bool playDeadSound;
+    string anim;
     void Start()
     {   
         playDeadSound = true;
@@ -58,9 +59,11 @@ public class EnemyAI : MonoBehaviour
             patrolPosition = Random.Range(0, patrolZones.Length - 1);
         }
         if(run){
-            speed = 7.0f;
+            speed = 6.0f;
+            anim = "Run";
         } else {
-            speed = 2.0f;
+            speed = 1.5f;
+            anim = "Walk";
         }
         if(Random.Range(1, 3) == 1){
             dropAmmo = true;
@@ -88,13 +91,13 @@ public class EnemyAI : MonoBehaviour
                 attackRange, isPlayer);
                 if(attack){
                     animZombie.SetBool("Walk", false);
-                    animZombie.SetBool("Run", false);
+                    animZombie.SetBool(anim, false);
                     animZombie.SetBool("Attack", true);
                     agent.speed = speed;
                     agent.SetDestination(playerPosition);
                 } else {
                     animZombie.SetBool("Walk", false);
-                    animZombie.SetBool("Run", true);
+                    animZombie.SetBool(anim, true);
                     animZombie.SetBool("Attack", false);
                     agent.speed = speed;
                     agent.SetDestination(playerPosition);

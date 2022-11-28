@@ -17,24 +17,28 @@ public class PlayerHealth : MonoBehaviour
     Image [] damage;
     int posimage;
 
-    GameObject panel;
+    //GameObject panel;
+    public bool isDead;
+    AudioSource deadSound;
     void Start(){
+        deadSound = gameObject.GetComponent<AudioSource>();
+        isDead = false;
         posimage = 0;
         HideImages();
         playerLife = 3f;
         playerDamage = 1f;
-        panel = GameObject.FindGameObjectWithTag("Canvas");
-        panel.SetActive(false);
+        //panel = GameObject.FindGameObjectWithTag("Canvas");
+        //panel.SetActive(false);
     }
     private void OnTriggerEnter(Collider other) {
-        Debug.Log(other.gameObject.name);
         animZombie = other.gameObject.GetComponentInChildren<Animator>();
         if(other.gameObject.tag.Equals("Enemy") && !animZombie.GetBool("Dead") && animZombie.GetBool("Attack")){
             if(playerLife <= 0){
                 Debug.Log("Estas Muerto");
+                isDead = true;
                 gameObject.GetComponent<Rigidbody>().freezeRotation = false;
                 gameObject.GetComponent<playerMov>().enabled = false;
-                panel.SetActive(true);
+                //panel.SetActive(true);
                 StartCoroutine("ChangeScene");
             } else {
                 playerLife -= playerDamage;

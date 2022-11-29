@@ -17,9 +17,6 @@ public class ZombieSpawner : MonoBehaviour
     {
 
         spawner = true;
-        /*1. Funcion que spawnea zombies
-        2. tiempo que tarda en iniciar el spawn
-        3. el intervalo de tiempo entre spawn*/
         InvokeRepeating("SpawnZombie", 0f, spawnTime);
         gameObject.SetActive(false);
     }

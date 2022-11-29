@@ -7,20 +7,16 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField]
     MessageControl messageControl;
-
-    bool objPolice = false;
-    bool objFire = false;
-    bool objGirl = false;
+    TriggerControll triggerControll;
 
     public GameObject desactivatePlayer;
     public GameObject desactivateCanvas;
     
     private void Update()
     {
-        //Menu();
     }
-    void Start(){
-        //buttonAction = GetComponent<ButtonAction>();
+    void Start()
+    {
     }
     /*
     void OnTriggerEnter(Collider other)
@@ -42,7 +38,7 @@ public class LevelController : MonoBehaviour
             messageControl.findPoliceStation();
 
         }
-        //-----------MENSAJES DE DIALOGOS-----------
+        //-----------MENSAJES DE DIALOGOS PLAYER-----------
         if (other.gameObject.name.Equals ("DialogoEsperanza"))
         {
             Destroy(other.gameObject);
@@ -67,11 +63,16 @@ public class LevelController : MonoBehaviour
             messageControl.mensajeCiudad();
 
         }
-        if (other.gameObject.name.Equals ("DialogoHermana"))
+        //-----------MENSAJES DE DIALOGOS GIRL-----------
+        if (other.gameObject.name.Equals ("hermanaMiedo"))
         {
             Destroy(other.gameObject);
-            messageControl.mensajeEncontrarHermana();
-
+            messageControl.girlMiedo();
+        }
+        if (other.gameObject.name.Equals ("hermanaEscuchar"))
+        {
+            Destroy(other.gameObject);
+            messageControl.girlEscucha();
         }
         //-----------MENSAJES DE GUIA-----------
         if (other.gameObject.name.Equals ("Precaucion"))

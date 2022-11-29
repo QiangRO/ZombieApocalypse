@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 [ExecuteInEditMode]
-
 public class ProgressBar : MonoBehaviour
 {
-
     [Header("Title Setting")]
     public string Title;
     public Color TitleColor;
@@ -16,9 +13,10 @@ public class ProgressBar : MonoBehaviour
     public int TitleFontSize = 10;
 
     [Header("Bar Setting")]
-    public Color BarColor;   
+    public Color BarColor;
     public Color BarBackGroundColor;
     public Sprite BarBackGroundSprite;
+
     [Range(1f, 100f)]
     public int Alert = 20;
     public Color BarAlertColor;
@@ -27,8 +25,9 @@ public class ProgressBar : MonoBehaviour
     public AudioClip sound;
     public bool repeat = false;
     public float RepeatRate = 1f;
-    
-    private Image bar, barBackground;
+
+    private Image bar,
+        barBackground;
     private float nextPlay;
     private AudioSource audiosource;
     private Text txtTitle;
@@ -43,6 +42,7 @@ public class ProgressBar : MonoBehaviour
             UpdateValue(barValue);
         }
     }
+
     private void Awake()
     {
         bar = transform.Find("Bar").GetComponent<Image>();
@@ -60,7 +60,7 @@ public class ProgressBar : MonoBehaviour
         txtTitle.fontSize = TitleFontSize;
 
         bar.color = BarColor;
-        barBackground.color = BarBackGroundColor; 
+        barBackground.color = BarBackGroundColor;
         barBackground.sprite = BarBackGroundSprite;
         UpdateValue(barValue);
     }
@@ -82,7 +82,7 @@ public class ProgressBar : MonoBehaviour
     private void Update()
     {
         if (!Application.isPlaying)
-        {           
+        {
             UpdateValue(50);
             txtTitle.color = TitleColor;
             txtTitle.font = TitleFont;
@@ -91,7 +91,7 @@ public class ProgressBar : MonoBehaviour
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;
 
-            barBackground.sprite = BarBackGroundSprite;           
+            barBackground.sprite = BarBackGroundSprite;
         }
         else
         {
@@ -102,5 +102,4 @@ public class ProgressBar : MonoBehaviour
             }
         }
     }
-
 }

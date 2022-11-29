@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    MessageControl messageControl;
+    public ProgressBar Pb;
     // Start is called before the first frame update
-    float playerLife = 3f;
-    float playerDamage = 1f;
+    float playerLife = 100f;
+    float playerDamage = 20f;
     // [SerializeField]
     // Image lifeBar;
     Animator animZombie;
@@ -22,20 +22,20 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead;
     AudioSource deadSound;
     void Start(){
+        Pb.BarValue = playerLife;
         deadSound = gameObject.GetComponent<AudioSource>();
         isDead = false;
         posimage = 0;
         HideImages();
-        playerLife = 3f;
-        playerDamage = 1f;
+        playerLife = 100f;
+        playerDamage = 20f;
         //panel = GameObject.FindGameObjectWithTag("Canvas");
         //panel.SetActive(false);
     }
     private void OnTriggerEnter(Collider other) {
         animZombie = other.gameObject.GetComponentInChildren<Animator>();
         if(other.gameObject.tag.Equals("Enemy") && !animZombie.GetBool("Dead") && animZombie.GetBool("Attack")){
-            if(playerLife <= 0){
-                messageControl.gameOverMessage();
+            if(Pb.BarValue <= 0){
                 Debug.Log("Estas Muerto");
                 isDead = true;
                 gameObject.GetComponent<Rigidbody>().freezeRotation = false;
@@ -43,7 +43,8 @@ public class PlayerHealth : MonoBehaviour
                 //panel.SetActive(true);
                 StartCoroutine("ChangeScene");
             } else {
-                playerLife -= playerDamage;
+                Pb.BarValue -= 1;
+                //playerLife -= playerDamage;
                 damage[posimage].enabled = true;
                 posimage++;
                 // lifeBar.fillAmount = playerLife;

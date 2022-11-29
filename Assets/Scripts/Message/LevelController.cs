@@ -7,16 +7,16 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField]
     MessageControl messageControl;
-    bool getKey = false;
+    TriggerControll triggerControll;
+
     public GameObject desactivatePlayer;
     public GameObject desactivateCanvas;
     
     private void Update()
     {
-        //Menu();
     }
-    void Start(){
-        //buttonAction = GetComponent<ButtonAction>();
+    void Start()
+    {
     }
     /*
     void OnTriggerEnter(Collider other)
@@ -30,64 +30,88 @@ public class LevelController : MonoBehaviour
         {
             Destroy(other.gameObject);
             messageControl.findSchool();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("ObjetivoEncontrarEstacionPolicia"))
         {
             Destroy(other.gameObject);
             messageControl.findPoliceStation();
-            getKey = true;
+
         }
-        //-----------MENSAJES DE DIALOGOS-----------
+        //-----------MENSAJES DE DIALOGOS PLAYER-----------
         if (other.gameObject.name.Equals ("DialogoEsperanza"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeEsperanza();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoSusto"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeSusto();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoMunicion"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeMunicion();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoCiudad"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeCiudad();
-            getKey = true;
+
         }
-        if (other.gameObject.name.Equals ("DialogoHermana"))
+        if (other.gameObject.name.Equals ("EncontrarHermana"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeEncontrarHermana();
-            getKey = true;
+        }
+        if (other.gameObject.name.Equals ("Reflexion"))
+        {
+            Destroy(other.gameObject);
+            messageControl.mensajereflexion();
+        }
+        //-----------MENSAJES DE DIALOGOS GIRL-----------
+        if (other.gameObject.name.Equals ("hermanaMiedo"))
+        {
+            Destroy(other.gameObject);
+            messageControl.girlMiedo();
+        }
+        if (other.gameObject.name.Equals ("hermanaNoCorras"))
+        {
+            Destroy(other.gameObject);
+            messageControl.girlNoCorras();
         }
         //-----------MENSAJES DE GUIA-----------
         if (other.gameObject.name.Equals ("Precaucion"))
         {
             Destroy(other.gameObject);
             messageControl.precaucionZombies();
-            getKey = true;
+        }
+        if (other.gameObject.name.Equals ("Municion"))
+        {
+            Destroy(other.gameObject);
+            messageControl.precaucionMunicion();
+        }
+        if (other.gameObject.name.Equals ("Horda"))
+        {
+            Destroy(other.gameObject);
+            messageControl.precaucionHorda();
+        }
+        if (other.gameObject.name.Equals ("Espera"))
+        {
+            Destroy(other.gameObject);
+            messageControl.precaucionEsperaGirl();
         }
         if (other.gameObject.name.Equals ("GameOver"))
         {
             Destroy(other.gameObject);
             messageControl.gameOverMessage();
-            getKey = true;
-        }
-    }/*
-    void OnTriggerEnter(Collider other)
-    {
-        
-    }*/
 
+        }
+    }
     /*
     void OnTriggerStay(Collider other)
     {
@@ -114,14 +138,14 @@ public class LevelController : MonoBehaviour
         messageControl.gameOverMessage();
     }*/
 
-    public IEnumerator TimeToFreeze()
-    {
-        yield return new WaitForSeconds(0.7f);
-        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        gameObject.GetComponent<playerMov>().enabled = false;
-        desactivatePlayer.SetActive(false);
-        desactivateCanvas.SetActive(false);
-    }
+    // public IEnumerator TimeToFreeze()
+    // {
+    //     yield return new WaitForSeconds(0.7f);
+    //     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    //     gameObject.GetComponent<playerMov>().enabled = false;
+    //     desactivatePlayer.SetActive(false);
+    //     desactivateCanvas.SetActive(false);
+    // }
     
     /*
     public void Reintentar()

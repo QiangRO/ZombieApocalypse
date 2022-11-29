@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class playerMov : MonoBehaviour
 {
+    [SerializeField]
+    GameObject linterna;
+    bool linternaOn = false;
     // correr
     public float runSpeed = 10f;
     
@@ -146,10 +149,19 @@ public class playerMov : MonoBehaviour
             moveSpeed = 4500;
             maxSpeed = startMaxSpeed;
         }
-        //
-        if(Input.GetKeyDown(KeyCode.F))
+        // Encender si esta apagada
+        if (Input.GetKeyDown(KeyCode.F) && !linternaOn)
         {
-            //SetAc
+            Debug.Log("Linterna encendida");
+            linterna.SetActive(true);
+            linternaOn = true;
+        }
+        // Apagar si esta encendida
+        else if (Input.GetKeyDown(KeyCode.F) && linternaOn)
+        {
+            Debug.Log("Linterna apagada");
+            linterna.SetActive(false);
+            linternaOn = false;
         }
 
         //Crouching

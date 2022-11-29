@@ -7,7 +7,11 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField]
     MessageControl messageControl;
-    bool getKey = false;
+
+    bool objPolice = false;
+    bool objFire = false;
+    bool objGirl = false;
+
     public GameObject desactivatePlayer;
     public GameObject desactivateCanvas;
     
@@ -30,64 +34,59 @@ public class LevelController : MonoBehaviour
         {
             Destroy(other.gameObject);
             messageControl.findSchool();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("ObjetivoEncontrarEstacionPolicia"))
         {
             Destroy(other.gameObject);
             messageControl.findPoliceStation();
-            getKey = true;
+
         }
         //-----------MENSAJES DE DIALOGOS-----------
         if (other.gameObject.name.Equals ("DialogoEsperanza"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeEsperanza();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoSusto"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeSusto();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoMunicion"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeMunicion();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoCiudad"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeCiudad();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("DialogoHermana"))
         {
             Destroy(other.gameObject);
             messageControl.mensajeEncontrarHermana();
-            getKey = true;
+
         }
         //-----------MENSAJES DE GUIA-----------
         if (other.gameObject.name.Equals ("Precaucion"))
         {
             Destroy(other.gameObject);
             messageControl.precaucionZombies();
-            getKey = true;
+
         }
         if (other.gameObject.name.Equals ("GameOver"))
         {
             Destroy(other.gameObject);
             messageControl.gameOverMessage();
-            getKey = true;
-        }
-    }/*
-    void OnTriggerEnter(Collider other)
-    {
-        
-    }*/
 
+        }
+    }
     /*
     void OnTriggerStay(Collider other)
     {

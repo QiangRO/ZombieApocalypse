@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class TriggerControll : MonoBehaviour
 {
+    public GameObject desactivatePlayer;
+    public GameObject desactivateCanvas;
+
     [SerializeField]
     MessageControl messageControl;
 
     [SerializeField]
     GameObject dialogosNiña;
+
+    [SerializeField]
+    GameObject dialogosGuia;
 
     [SerializeField]
     GameObject cajasMunicion;
@@ -61,31 +68,32 @@ public class TriggerControll : MonoBehaviour
             rescueArea.SetActive(true);
             dialogosNiña.SetActive(true);
             cajasMunicion.SetActive(true);
+            dialogosGuia.SetActive(true);
             messageControl.findRescueZone();
             messageControl.missionComplete();
         }
-        //Objetivo rescatar a la niña
-        if (other.gameObject.name.Equals("RescueArea"))
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name.Equals("RescueArea") && objFire && objPolice && objGirl)
         {
-            Destroy(other.gameObject);
-            objRescue = true;
+            StartCoroutine("TimeToFreeze");
+            StartCoroutine("ChangeScene");
+            messageControl.winMessage();
         }
-        /*void OnTriggerStay(Collider other)
-        {
-            if (other.gameObject.name.Equals("RescueArea"))
-            {
-                if (objFire && objPolice && objGirl)
-                {
-                    StartCoroutine(4f);
-                    messageControl.onDoorWithKey();
-                    //buttonAction.Reintentar();
-                    Reintentar();
-                }
-                else
-                {
-                    messageControl.onDoorWithoutKey();
-                }
-            }
-        }*/
+    }
+
+    public IEnumerator TimeToFreeze()
+    {
+        yield return new WaitForSeconds(0.7f);
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        gameObject.GetComponent<playerMov>().enabled = false;
+        desactivatePlayer.SetActive(false);
+        desactivateCanvas.SetActive(false);
+    }
+    private IEnumerator ChangeScene(){
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("Menu");
     }
 }

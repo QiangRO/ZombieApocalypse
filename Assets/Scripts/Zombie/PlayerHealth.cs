@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    MessageControl messageControl;
     // Start is called before the first frame update
     float playerLife = 3f;
     float playerDamage = 1f;
@@ -34,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
         animZombie = other.gameObject.GetComponentInChildren<Animator>();
         if(other.gameObject.tag.Equals("Enemy") && !animZombie.GetBool("Dead") && animZombie.GetBool("Attack")){
             if(playerLife <= 0){
+                messageControl.gameOverMessage();
                 Debug.Log("Estas Muerto");
                 isDead = true;
                 gameObject.GetComponent<Rigidbody>().freezeRotation = false;

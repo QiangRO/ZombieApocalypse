@@ -47,13 +47,38 @@ public class MessageControl : MonoBehaviour
         panelGuia.SetActive(true);
         StartCoroutine(TimeToMessageGuia());
     }
-
-    public void precaucionZombies()
+    public void winMessage()
     {
-        guiaText.text = "Los zombies te pueden matar";
+        guiaText.text = "Lograste rescatar a la niña, ganaste";
         panelGuia.SetActive(true);
         StartCoroutine(TimeToMessageGuia());
     }
+
+    public void precaucionZombies()
+    {
+        guiaText.text = "Algunos zombies son demasiado rapidos, cuidado";
+        panelGuia.SetActive(true);
+        StartCoroutine(TimeToMessageGuia());
+    }
+    public void precaucionMunicion()
+    {
+        guiaText.text = "Puedes encontrar municion en la estacion";
+        panelGuia.SetActive(true);
+        StartCoroutine(TimeToMessageGuia());
+    }
+    public void precaucionHorda()
+    {
+        guiaText.text = "Ten cuidado una horda se aproxima";
+        panelGuia.SetActive(true);
+        StartCoroutine(TimeToMessageGuia());
+    }
+    public void precaucionEsperaGirl()
+    {
+        guiaText.text = "Tu hija no es tan rapida, espera a que llegue";
+        panelGuia.SetActive(true);
+        StartCoroutine(TimeToMessageGuia());
+    }
+    
 
     public void missionComplete()
     {
@@ -97,6 +122,7 @@ public class MessageControl : MonoBehaviour
     //-------PLAYER-------
     public void mensajeEsperanza()
     {
+        dialogoGirlText.text = "";
         dialogoBoyText.text = "Espero poder encontrar la escuela antes que me devoren los zombies";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
@@ -104,6 +130,7 @@ public class MessageControl : MonoBehaviour
 
     public void mensajeSusto()
     {
+        dialogoGirlText.text = "";
         dialogoBoyText.text = "Maldita sea estos zombies son demasiado rapido";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
@@ -111,13 +138,15 @@ public class MessageControl : MonoBehaviour
 
     public void mensajeMunicion()
     {
-        dialogoBoyText.text = "Espero que encuentre munición para mi arma";
+        dialogoGirlText.text = "";
+        dialogoBoyText.text = "Espero encontrar municion los mas antes posible";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
     }
 
     public void mensajeCiudad()
     {
+        dialogoGirlText.text = "";
         dialogoBoyText.text = "Esta ciudad es demasiado grande";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
@@ -125,7 +154,15 @@ public class MessageControl : MonoBehaviour
 
     public void mensajeEncontrarHermana()
     {
+        dialogoGirlText.text = "";
         dialogoBoyText.text = "Tengo que encontrar a mi hermana, lo mas antes posible";
+        panelDialogo.SetActive(true);
+        StartCoroutine(TimeToMessageDialogo());
+    }
+    public void mensajereflexion()
+    {
+        dialogoGirlText.text = "";
+        dialogoBoyText.text = "Aunque esta ciudad sea demasiado grande, no hay nada que me detenga";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
     }
@@ -134,6 +171,7 @@ public class MessageControl : MonoBehaviour
     public void girlMiedo()
     {
         dialogoGirlText.text = "Ten cuidado papa!!";
+        dialogoBoyText.text = "";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
     }
@@ -141,6 +179,7 @@ public class MessageControl : MonoBehaviour
     public void girlNoCorras()
     {
         dialogoGirlText.text = "No corras tan rapido papa!!";
+        dialogoBoyText.text = "";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
     }
@@ -148,6 +187,7 @@ public class MessageControl : MonoBehaviour
     public void girlEscucha()
     {
         dialogoGirlText.text = "Creo haber oido un helicoptero!!";
+        dialogoBoyText.text = "";
         panelDialogo.SetActive(true);
         StartCoroutine(TimeToMessageDialogo());
     }

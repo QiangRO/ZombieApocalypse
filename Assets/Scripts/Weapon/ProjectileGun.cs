@@ -45,7 +45,7 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         readyToShoot = true;
         moving = GameObject.Find("PlayerObj").GetComponent<playerMov>();
-        totalBullets = magazineSize * 2;
+        totalBullets = magazineSize * 16;
         shootSound = gameObject.GetComponent<AudioSource>();
     }
     void Update()

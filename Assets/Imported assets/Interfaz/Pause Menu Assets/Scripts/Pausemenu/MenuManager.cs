@@ -430,7 +430,7 @@ namespace GreatArcStudios
         /// </summary>
         public void Resume()
         {
-            SceneManager.LoadScene("Juego");
+            SceneManager.LoadScene("JuegoPruebasAlberto");
         }
 
         /// <summary>
